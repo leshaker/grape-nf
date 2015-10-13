@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 '''=================================================================================================
 Infer RNA-seq experiment design from SAM/BAM file. This module will determine if the RNA-seq
 experiment is:
