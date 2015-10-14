@@ -26,6 +26,7 @@ RUN apt-get install python -y
 RUN apt-get install python-dev -y
 RUN apt-get install python-pip -y
 RUN apt-get install wget -y
+RUN apt-get install pigz -y
 # RUN apt-get install R -y
 
 # WORKDIR /usr/local/
