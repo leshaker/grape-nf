@@ -1,11 +1,11 @@
 ########################################################
-# Dockerfile to build STAR 2.4.2a and SAMtools 0.1.19
+# Dockerfile to build STAR 2.4.2a and SAMtools 1.2
 # container images 
 #
 # Based on ubuntu 14.04
 ########################################################
 
-FROM ubuntu:14.04
+FROM leshaker/base
 
 # File Author / Maintainer
 MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
@@ -17,16 +17,11 @@ ENV _STAR_VERSION STAR_2.4.2a
 
 # Update the repository sources list and install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    make \
     build-essential \
-    libz-dev \
-    libncurses-dev \
     libmysqlclient18 \
     libpng-dev \
     libmysqlclient-dev \
     libssl-dev \
-    pigz \
     vim-common
 
 # Install SAMtools
@@ -52,6 +47,6 @@ RUN chmod a+x *
 ENV PATH /usr/local/bin:$PATH
 
 # Clean up
-RUN apt-get remove -y perl make build-essential zlib1g-dev libncurses-dev libpng-dev libmysqlclient-dev libssl-dev vim-common && \
+RUN apt-get remove -y perl make build-essential libz-dev libncurses-dev libpng-dev libmysqlclient-dev libssl-dev vim-common && \
     apt-get autoremove -y 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

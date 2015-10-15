@@ -5,7 +5,7 @@
 # Based on ubuntu 14.04
 ########################################################
 
-FROM ubuntu:14.04
+FROM leshaker/base
 
 # File Author / Maintainer
 MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
@@ -17,10 +17,6 @@ ENV _RSEM_VERSION 1.2.22
 
 # Update the repository sources list and install dependencies
 RUN apt-get update && apt-get install -y \
-	gcc \
-	make \
-	libz-dev \
-	ncurses-dev \
 	r-base 
 
 # Install SAMtools
@@ -43,6 +39,6 @@ RUN make ebseq
 ENV PATH /usr/local/RSEM:$PATH
 
 # Clean up
-RUN apt-get remove -y make libz-dev ncurses-dev && \
+RUN apt-get remove -y make libz-dev libncurses-dev && \
     apt-get autoremove -y 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
