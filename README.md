@@ -1,8 +1,3 @@
-Title:   Home
-Summary: Main page for Grape documentation.
-Authors: Emilio Palumbo
-Date:    June 15, 2015
-
 # Grape
 
 Grape provides an extensive pipeline for RNA-Seq analyses. It allows the creation of an automated and integrated workflow to manage and analyse RNA-Seq data.
