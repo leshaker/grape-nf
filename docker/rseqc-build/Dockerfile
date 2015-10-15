@@ -9,33 +9,19 @@ FROM ubuntu:14.04
 # File Author / Maintainer
 MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
 
-# Update the repository sources list
-RUN apt-get update -y
+# Update the repository sources list and install dependencies
+RUN apt-get update && apt-get install -y \
+	python-numpy \ 
+	python-dev
 
-# install dependencies
-RUN apt-get install gcc -y
-RUN apt-get install g++ -y
-RUN apt-get install make -y
-RUN apt-get install git -y
-RUN apt-get install perl -y
-RUN apt-get install libz-dev
-RUN apt-get install ncurses-dev -y
-RUN apt-get install python -y
-RUN apt-get install python-dev -y
-RUN apt-get install python-pip -y
-RUN apt-get install python-numpy -y
-RUN apt-get install wget -y
-RUN apt-get install pigz -y
-
+ADD http://sourceforge.net/projects/rseqc/files/RSeQC-2.6.2.tar.gz/download /usr/local/RSeQC-2.6.2.tar.gz
 WORKDIR /usr/local/
-RUN wget http://sourceforge.net/projects/rseqc/files/RSeQC-2.6.2.tar.gz
-RUN tar xzf RSeQC-2.6.2.tar.gz
-RUN rm RSeQC-2.6.2.tar.gz
+RUN tar xzf RSeQC-2.6.2.tar.gz && rm RSeQC-2.6.2.tar.gz
 WORKDIR /usr/local/RSeQC-2.6.2
 RUN python setup.py install
 
+ADD http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/gtfToGenePred /usr/local/bin/
+ADD http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/genePredToBed /usr/local/bin/
 WORKDIR /usr/local/bin
-RUN wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/gtfToGenePred
-RUN wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/genePredToBed
 RUN chmod a+x *
 ENV PATH /usr/local/bin:$PATH

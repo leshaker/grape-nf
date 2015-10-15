@@ -10,20 +10,18 @@ FROM ubuntu:14.04
 # File Author / Maintainer
 MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
 
-# Update the repository sources list
-RUN apt-get update -y
-
-# install dependencies
-RUN apt-get install gcc -y
-RUN apt-get install g++ -y
-RUN apt-get install make -y
-RUN apt-get install git -y
-RUN apt-get install perl -y
-RUN apt-get install libz-dev
-RUN apt-get install ncurses-dev -y
-RUN apt-get install pigz -y
-RUN apt-get install curl -y
-RUN apt-get install r-base -y
+# Update the repository sources list and install dependencies
+RUN apt-get update && apt-get install -y \
+	gcc \
+	g++ \
+	make \
+	git \
+	perl \
+	libz-dev \
+	ncurses-dev \
+	pigz \
+	curl \
+	r-base 
 
 WORKDIR /usr/local/
 ENV _SAMTOOLS_VERSION 1.2-rglab-CRG
