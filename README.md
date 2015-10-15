@@ -43,13 +43,13 @@ nextflow -self-update
 The pipeline will be automatically downloaded the first time if it is not found on the local system. To run the pipeline the following command is used:
 
 ```shell
-nextflow run guigolab/grape-nf ...
+nextflow run leshaker/grape-nf ...
 ```
 
 The command above will not update the pipeline if it is already present in the system. In order to always run the latest version it is possible to download the pipeline in advance and then run it:
 
 ```shell
-nextflow pull guigolab/grape-nf
+nextflow pull leshaker/grape-nf
 nextflow run grape-nf ...
 ```
 
@@ -99,7 +99,7 @@ nextflow run grape-nf --help
 
 ```
 N E X T F L O W  ~  version 0.14.0
-Launching 'guigolab/grape-nf' - revision: 21c5e84cf8 [master]
+Launching 'leshaker/grape-nf' - revision: 21c5e84cf8 [master]
 
 G R A P E ~ RNA-seq Pipeline
 ----------------------------
@@ -230,11 +230,9 @@ The Grape pipeline can be run using different configuration profiles. The profil
 
 profile | description 
 --------|-------------
-``gemflux``  | uses the GEMtools for mapping pipeline and the Flux Capacitor for isoform expression quantification
 ``starrsem`` | uses the STAR for mapping and bigwig and the RSEM program for isoform expression quantification
-``starflux`` | uses the STAR for mapping and the Flux Capacitor for isoform expression quantification
 
-The ``gemflux`` profile is used as the default profile if no profile is specified. To specify a profile you can use the `-profiles` Nextflow [option](http://www.nextflow.io/docs/latest/config.html#config-profiles). For example, to use STAR and RSEM just run the following command:
+The ``starrsem`` profile is used as the default profile if no profile is specified. To specify a profile you can use the `-profiles` Nextflow [option](http://www.nextflow.io/docs/latest/config.html#config-profiles). For example, to use STAR and RSEM just run the following command:
 
 ```shell
 nextflow -bg run grape-nf -profile starrsem --index input-files.tsv --genome refs/hg38.AXYM.fa --annotation refs/gencode.v21.annotation.AXYM.gtf --rg-platform ILLUMINA --rg-center-name CRG -resume 2>&1 > pipeline.log
