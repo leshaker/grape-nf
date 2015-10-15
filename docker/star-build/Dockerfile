@@ -18,12 +18,7 @@ ENV _USERAPPS_VERSION v323
 
 # Update the repository sources list and install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libmysqlclient18 \
-    libpng-dev \
-    libmysqlclient-dev \
-    libssl-dev \
-    vim-common
+	libkrb5-dev
 
 # Install SAMtools
 WORKDIR /usr/local/
@@ -43,14 +38,11 @@ ENV PATH /usr/local/STAR/bin/Linux_x86_64:$PATH
 
 # Install UCSC tools
 WORKDIR /usr/local/
-ADD http://hgdownload.soe.ucsc.edu/admin/exe/userApps.$_USERAPPS_VERSION.src.tgz /usr/local/
-RUN tar xzf userApps.$_USERAPPS_VERSION.src.tgz && rm userApps.$_USERAPPS_VERSION.src.tgz
-RUN cd userApps && make libs && \
-    cd kent/src && make destBin && \
- 	cd utils && make bedGraphToBigWig.userApps && \
-ENV PATH /usr/local/userApps/bin:$PATH
+ADD http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig /usr/local/bin/
+RUN chmod a+x bin/*
+ENV PATH /usr/local/bin:$PATH
 
 # Clean up
-RUN apt-get remove -y perl make build-essential libz-dev libncurses-dev libpng-dev libmysqlclient-dev libssl-dev vim-common && \
-    apt-get autoremove -y 
+RUN apt-get remove -y perl make libz-dev libncurses-dev && \
+	apt-get autoremove -y 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
