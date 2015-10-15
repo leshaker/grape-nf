@@ -14,6 +14,7 @@ MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
 ENV _SAMTOOLS_VERSION 1.2
 ENV _HTSLIB_VERSION 1.2.1
 ENV _STAR_VERSION STAR_2.4.2a
+ENV _USERAPPS_VERSION v323
 
 # Update the repository sources list and install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -40,11 +41,14 @@ ADD https://github.com/alexdobin/STAR/archive/$_STAR_VERSION.tar.gz /usr/local/
 RUN tar xzf $_STAR_VERSION.tar.gz && rm $_STAR_VERSION.tar.gz && mv STAR-$_STAR_VERSION STAR
 ENV PATH /usr/local/STAR/bin/Linux_x86_64:$PATH
 
-# Install bedGraphToBigWig
-ADD http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig /usr/local/bin/
-WORKDIR /usr/local/bin/
-RUN chmod a+x *
-ENV PATH /usr/local/bin:$PATH
+# Install UCSC tools
+WORKDIR /usr/local/
+ADD http://hgdownload.soe.ucsc.edu/admin/exe/userApps.$_USERAPPS_VERSION.src.tgz /usr/local/
+RUN tar xzf userApps.$_USERAPPS_VERSION.src.tgz && rm userApps.$_USERAPPS_VERSION.src.tgz
+RUN cd userApps && make libs && \
+    cd kent/src && make destBin && \
+ 	cd utils && make bedGraphToBigWig.userApps && \
+ENV PATH /usr/local/userApps/bin:$PATH
 
 # Clean up
 RUN apt-get remove -y perl make build-essential libz-dev libncurses-dev libpng-dev libmysqlclient-dev libssl-dev vim-common && \
