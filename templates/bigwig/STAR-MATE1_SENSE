@@ -9,21 +9,25 @@ STAR --runThreadN ${cpus} \
      --outWigReferencesPrefix ${wigRefPrefix}
 
 LC_COLLATE=C sort -k1,1 -k2,2n Signal/Signal.UniqueMultiple.str1.out.bg > Signal/Signal.UniqueMultiple.str1.out.sort.bg
+rm Signal/Signal.UniqueMultiple.str1.out.bg
 bedGraphToBigWig Signal/Signal.UniqueMultiple.str1.out.sort.bg \
                  <(grep '^${wigRefPrefix}' ${genomeFai}) \
                  ${prefix}.UniqueMultiple.minusRaw.bw 
 
 LC_COLLATE=C sort -k1,1 -k2,2n Signal/Signal.UniqueMultiple.str2.out.bg > Signal/Signal.UniqueMultiple.str2.out.sort.bg                 
+rm Signal/Signal.UniqueMultiple.str2.out.bg
 bedGraphToBigWig Signal/Signal.UniqueMultiple.str2.out.sort.bg \
                  <(grep '^${wigRefPrefix}' ${genomeFai}) \
                  ${prefix}.UniqueMultiple.plusRaw.bw 
 
 LC_COLLATE=C sort -k1,1 -k2,2n Signal/Signal.Unique.str1.out.bg > Signal/Signal.Unique.str1.out.sort.bg
+rm Signal/Signal.Unique.str1.out.bg
 bedGraphToBigWig Signal/Signal.Unique.str1.out.sort.bg \
                  <(grep '^${wigRefPrefix}' ${genomeFai}) \
                  ${prefix}.Unique.minusRaw.bw
 
 LC_COLLATE=C sort -k1,1 -k2,2n Signal/Signal.Unique.str2.out.bg > Signal/Signal.Unique.str2.out.sort.bg
+rm Signal/Signal.Unique.str2.out.bg
 bedGraphToBigWig Signal/Signal.Unique.str2.out.sort.bg \
                  <(grep '^${wigRefPrefix}' ${genomeFai}) \
                  ${prefix}.Unique.plusRaw.bw
