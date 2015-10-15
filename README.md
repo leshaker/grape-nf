@@ -98,7 +98,7 @@ nextflow run grape-nf --help
 ```
 
 ```
-N E X T F L O W  ~  version 0.14.0
+N E X T F L O W  ~  version 0.15.5
 Launching 'leshaker/grape-nf' - revision: 21c5e84cf8 [master]
 
 G R A P E ~ RNA-seq Pipeline
