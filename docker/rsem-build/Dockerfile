@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
 	curl \
 	r-base 
 
-WORKDIR /usr/local/
+WORKDIR /usr/local
 ENV _SAMTOOLS_VERSION 1.2-rglab-CRG
 RUN mkdir -p samtools 
 RUN curl -L https://github.com/emi80/samtools/releases/download/$_SAMTOOLS_VERSION/samtools-$_SAMTOOLS_VERSION.tar.bz2 | tar xj --strip-components=1 -C samtools
@@ -31,7 +31,7 @@ WORKDIR /usr/local/samtools
 RUN make
 ENV PATH /usr/local/samtools:$PATH
 
-WORKDIR /usr/local/
+WORKDIR /usr/local
 RUN git clone https://github.com/deweylab/RSEM.git
 WORKDIR /usr/local/RSEM
 RUN git checkout v1.2.22
