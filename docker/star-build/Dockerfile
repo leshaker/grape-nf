@@ -16,12 +16,18 @@ ENV _HTSLIB_VERSION 1.2.1
 ENV _STAR_VERSION STAR_2.4.2a
 
 # Update the repository sources list and install dependencies
-RUN apt-get update && apt-get install -y \
-	gcc \
- 	make \
-	libz-dev \
-	ncurses-dev \
-	pigz
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    make \
+    build-essential \
+    libz-dev \
+    libncurses-dev \
+    libmysqlclient18 \
+    libpng-dev \
+    libmysqlclient-dev \
+    libssl-dev \
+    pigz \
+    vim-common
 
 # Install SAMtools
 WORKDIR /usr/local/
@@ -46,6 +52,6 @@ RUN chmod a+x *
 ENV PATH /usr/local/bin:$PATH
 
 # Clean up
-RUN apt-get remove -y make libz-dev ncurses-dev && \
+RUN apt-get remove -y perl make build-essential zlib1g-dev libncurses-dev libpng-dev libmysqlclient-dev libssl-dev vim-common && \
     apt-get autoremove -y 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
