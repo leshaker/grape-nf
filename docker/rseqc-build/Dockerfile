@@ -11,6 +11,7 @@ MAINTAINER Max Schelker <max.schelker@hu-berlin.de>
 
 # Update the repository sources list and install dependencies
 RUN apt-get update && apt-get install -y \
+	libz-dev \
 	python-numpy \ 
 	python-dev
 
